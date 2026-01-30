@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERFORMANCE - Historias de Performance</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #f5f7fa; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #f6d365, #fda085); color: #2f2f2f; padding: 40px 30px; border-radius: 12px; margin-bottom: 30px; }
+        .header h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
+        .header p { margin: 5px 0; }
+        .section { background: white; margin: 20px 0; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .section h2 { color: #f6a314; border-bottom: 3px solid #f6a314; padding-bottom: 10px; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 20px; }
+        .card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; background: #fff9f3; }
+        .card h3 { margin-top: 0; color: #f37021; }
+        ul { padding-left: 1.2rem; }
+        pre { background: #1f1f2f; color: #fefefe; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 0.95rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        th { background: #f6d365; color: #333; }
+        footer { text-align: center; margin: 40px 0 20px; }
+        footer a { color: #f37021; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>⚡ PERFORMANCE - Historias Operativas</h1>
+        <p>Guía para alinear los flujos principales con los presupuestos de performance antes del próximo release.</p>
+        <p><strong>Objetivo:</strong> Documentar metas, criterios y métricas para `MainMenuPage`, `AccountViewPage` y `TransactionListPage`.</p>
+    </header>
+
+    <section class="section">
+        <h2>📋 Visión general</h2>
+        <p>Cubre los tres entry points de la experiencia back-office que deben responder rápido y mostrar datos completos: el menú principal, la vista de cuentas y la lista de transacciones. Todas las pantallas emplean componentes reales (`MenuScreen`, `AccountViewScreen`, `TransactionListScreen`, `LoadingSpinner`) y hooks (`useMenu`, `useAccountView`, `useTransactionList`) integrados con el `ApiClient`.</p>
+        <table>
+            <thead>
+                <tr><th>Pantalla</th><th>Componentes</th><th>APIs críticas</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MainMenuPage</td>
+                    <td>`MenuScreen`, `useMenu`, `getMainMenuData`</td>
+                    <td>`GET /api/menu/mainmenu` (mock: `/api/menu/main`)</td>
+                </tr>
+                <tr>
+                    <td>AccountViewPage</td>
+                    <td>`AccountViewScreen`, `useAccountView`, `LoadingSpinner`</td>
+                    <td>`GET /api/account/acccount?accountId=` (mock: `/api/account-view`)</td>
+                </tr>
+                <tr>
+                    <td>TransactionListPage</td>
+                    <td>`TransactionListScreen`, `useTransactionList`, `SystemHeader`, MUI Table</td>
+                    <td>`GET /api/transaction/transactionlist` (mock: `/api/transactions/list`)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="section">
+        <h2>🎯 Guía de historias</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>📝 Historia central</h3>
+                <p><strong>Como:</strong> Senior Product Owner del SAI</p>
+                <p><strong>Quiero:</strong> un onboarding claro con metas medibles de performance para los flujos del menú, cuentas y transacciones.</p>
+                <p><strong>Para:</strong> mantener a los usuarios back-office productivos bajo los presupuestos de FCP, TTI, bundle y latencias.</p>
+            </div>
+            <div class="card">
+                <h3>📊 Criterios</h3>
+                <ul>
+                    <li>FCP ≤ 1.5s (P95) en los tres entry points.</li>
+                    <li>Bundle principal gzipped < 500 KB.</li>
+                    <li>GET API P95 ≤ 500 ms y ≥ 99% success para los tres endpoints.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>📝 Otras stories</h3>
+                <ul>
+                    <li>Como QA, quiero corridas repetibles de Lighthouse para defender el presupuesto.</li>
+                    <li>Como dev, quiero registrar autometricas de API sin tocar cada página.</li>
+                    <li>Como líder, quiero un checklist de release para validar performance.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>🔧 Instrumentación y métricas</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>⚡ Medición sintética</h3>
+                <p>Lighthouse CLI o Playwright + Lighthouse guardan FCP/TTI de los entry points. Los resultados se almacenan en <a href="../../performance/performance-reports.md">docs/performance/performance-reports.md</a>.</p>
+            </div>
+            <div class="card">
+                <h3>🧮 Bundle</h3>
+                <p>El build `npm run build` produce `dist/assets/index.*.js`: usar `npx gzip-size` o el reporte de Vite para verificar los 500 KB comprimidos.</p>
+            </div>
+            <div class="card">
+                <h3>📡 APIs</h3>
+                <p>Instrumentar `app/services/api.ts` para reportar latencias de `GET /api/menu/mainmenu`, `GET /api/account/acccount` y `GET /api/transaction/transactionlist` (mockeados actualmente como `/api/menu/main`, `/api/account-view`, `/api/transactions/list`).</p>
+            </div>
+        </div>
+        <p>Checklist completo en <a href="../../performance/performance-checklist.md">docs/performance/performance-checklist.md</a>.</p>
+        <p>Reporte diario/por release en <a href="../../performance/performance-reports.md">docs/performance/performance-reports.md</a>.</p>
+    </section>
+
+    <section class="section">
+        <h2>⚙ Factores de aceleración</h2>
+        <ul>
+            <li><strong>`useMenu` / `useAccountView` / `useTransactionList`:</strong> encapsulan loading, error y llamadas, facilitando instrumentación centralizada.</li>
+            <li><strong>`LoadingSpinner`:</strong> ya se muestra durante cargas largas para mantener la percepción fluida.</li>
+            <li><strong>MSW:</strong> los handlers (`menuHandlers`, `accountHandlers`, `transactionListHandlers`) permiten simular latencias controladas (300-800 ms) antes de pasar a staging.</li>
+            <li><strong>ApiClient:</strong> detecta timeouts y errores; extenderlo para medir latencias no requiere reescribir las llamadas en cada flow.</li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h2>📎 Dependencias</h2>
+        <ul>
+            <li><strong>AUTH:</strong> protege las rutas y permite medir los flujos una vez autenticados.</li>
+            <li><strong>Menu (MenuScreen):</strong> orquesta la navegación hacia cuentas y transacciones.</li>
+            <li><strong>Backend / mocks:</strong> valores en dev (MSW) y staging (endpoints reales) deben alinearse con los presupuestos.</li>
+            <li><strong>Tooling:</strong> Vite, Lighthouse, gzip-size, Playwright/WebPageTest, `ApiClient` y `docs/performance` para las métricas.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p><a href="../index.html">← Volver al índice de módulos</a> · <a href="../../system-overview.md#-presupuestos-de-performance">🏠 System Overview</a></p>
+        <p><em>Última actualización: 2026-01-28 | Precisión: ≥95%</em></p>
+    </footer>
+</div>
+</body>
+</html>

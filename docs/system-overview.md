@@ -482,6 +482,49 @@ interface BillPayment {
 
 ---
 
+### ⚡ PERFORMANCE - Aseguramiento de Rendimiento
+
+**ID**: `performance`  
+**Propósito**: Documentar y monitorear los presupuestos de performance para los entry points críticos (menú, cuenta, transacciones) y sus APIs asociadas antes de cada release.  
+**Componentes Clave**:
+- `MainMenuPage.tsx` / `MenuScreen` / `useMenu` – puerta de entrada al sistema back-office.
+- `AccountViewPage.tsx` / `AccountViewScreen` / `useAccountView` – muestra balances y tarjetas.
+- `TransactionListPage.tsx` / `TransactionListScreen` / `useTransactionList` – lista paginada con shortcuts.
+- `LoadingSpinner.tsx` + `SystemHeader.tsx` – mantienen la percepción de carga mientras se cargan datos críticos.
+
+**APIs Públicas**:
+- `GET /api/menu/mainmenu` – opciones del menú principal (mock: `/api/menu/main`).
+- `GET /api/account/acccount?accountId={id}` – datos financieros de una cuenta (mock: `/api/account-view`).
+- `GET /api/transaction/transactionlist` – lista de transacciones (mock: `/api/transactions/list`, `/next-page`, `/previous-page`).
+
+**Tipos de Datos**:
+```typescript
+interface PerformanceMetric {
+  name: 'FCP' | 'TTI' | 'bundle' | 'api';
+  value: number;
+  unit: 's' | 'ms' | 'KB';
+  target: number;
+  entryPoint?: string;
+}
+```
+
+**Reglas de Negocio (presupuestos)**:
+- First Contentful Paint ≤ 1.5 s en `MainMenuPage`, `AccountViewPage`, `TransactionListPage` (P95).
+- Time to Interactive ≤ 3.0 s para las mismas tres entradas.
+- Bundle principal gzipped < 500 KB después de `npm run build`.
+- P95 de `GET /api/menu/mainmenu`, `GET /api/account/acccount`, `GET /api/transaction/transactionlist` ≤ 500 ms con ≥ 99% success.
+
+**Ejemplos de User Stories**:
+- Como Senior Product Owner, quiero un onboarding de performance con metas claras para los tres entry points para que el equipo pueda priorizar optimizaciones sin bloquear el flujo del back-office.
+- Como QA, quiero ejecutar una checklist que incluya Lighthouse, bundle analysis y medición de latencias API antes de aprobar un release.
+- Como desarrollador, quiero instrumentar `app/services/api.ts` y documentar cada corrida en `performance/performance-reports.md` para demostrar cumplimiento del presupuesto.
+
+**Referencias**:
+- `modules/performance/performance-overview.md` – guía completa de la historia DS3AJG-2.
+- `performance/performance-checklist.md` y `performance/performance-reports.md` para los pasos operativos y reportes de métricas.
+
+---
+
 ## 🔄 Estructura de Internacionalización (i18n)
 
 ### Estado Actual
@@ -754,6 +797,12 @@ function CreditCardListScreen() {
 - Como administrador, quiero crear nuevos usuarios para dar acceso a empleados
 - Como administrador, quiero desactivar usuarios para revocar accesos
 - Como administrador, quiero cambiar roles de usuarios para ajustar permisos
+
+#### ⚡ Historias de Performance
+**Patrón**: Como Product Owner quiero instrumentar los entry points principales para cumplir presupuestos de performance y mantener flujos críticos fluidos.
+
+**Ejemplo**:
+- Como Senior Product Owner del SAI, quiero un onboarding con metas medibles (FCP ≤ 1.5 s, TTI ≤ 3 s, bundle gzipped < 500 KB, GET APIs ≤ 500 ms P95) para mantener el código rápido sin afectar a los usuarios back-office.
 
 ---
 
