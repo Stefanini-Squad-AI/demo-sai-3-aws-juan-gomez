@@ -856,6 +856,33 @@ function CreditCardListScreen() {
 
 ---
 
+## 📈 DS3AJG-2: Historias de Usuario centradas en performance
+
+### 1. Feature summary
+Documentar una historia de usuario orientada a performance que cubra los flujos de entrada actuales (`app/pages/MainMenuPage.tsx`, `app/pages/AccountViewPage.tsx`, `app/pages/TransactionListPage.tsx`) para guiar esfuerzos de paint faster, bundles más pequeños y respuestas API más ágiles. El objetivo es mantener a los usuarios back-office productivos respetando los presupuestos documentados de FCP, TTI, tamaño de bundle y latencia API.
+
+### 2. User Story
+*Como* Senior Product Owner para la plataforma SAI  
+*Cuando* planifico el próximo sprint que toca los menús, cuentas y transacciones  
+*Entonces* quiero una historia de onboarding con objetivos de performance medibles para que el equipo pueda mejorar el código sin afectar los workflows críticos ni la satisfacción del usuario
+
+### 3. Acceptance criteria
+- **AC1:** Las mediciones sintéticas sobre `MainMenuPage`, `AccountViewPage` y `TransactionListPage` deben mostrar First Contentful Paint ≤ 1.5 s en el percentil 95. Justificación: cumplir el presupuesto FCP para que la UI se perciba responsiva.
+- **AC2:** El bundle principal del build de producción que incluye esos módulos debe permanecer por debajo de 500 KB (gzipped). Justificación: mantener descargas dentro del presupuesto para evitar arranques lentos.
+- **AC3:** Las llamadas **GET /api/menu/mainmenu**, **GET /api/account/acccount** y **GET /api/transaction/transactionlist** en el happy path deben responder en ≤ 500 ms (P95) y al menos el 99 % debe devolver datos exitosos. Justificación: asegurar que la latencia API documentada mantiene la fluidez de la UI.
+
+### 4. Reuse y esfuerzo
+- **Reusable:** 75 % (flujos existentes de menú/cuenta/transacción y contratos de API).
+- **Componentes reutilizados:** `MainMenuPage.tsx`, `AccountViewPage.tsx`, `TransactionListPage.tsx`, `app/components/ui/LoadingSpinner.tsx` para mantener percepción de progreso durante cargas.
+- **Nuevos componentes:**  
+  1. Harness de medición de performance (Lighthouse o herramienta similar) con checklist de regresión para las tres entradas y sus llamadas API.  
+  2. Reporte ligero o dashboard (puede ser doc/hoja) que registre métricas de FCP, tamaño de bundle y latencia API por ejecución.
+- **Esfuerzo estimado:** 3 story points (instrumentación, verificación y alineación con stakeholders).  
+- **Complejidad:** Baja (no se introducen nuevas experiencias, solo guardrails de performance).
+
+### 5. Contexto adicional
+Sin información adicional: todos los detalles necesarios ya fueron incorporados en la historia anterior.
+
 ## 🚨 Consideraciones de Readiness
 
 ### Riesgos Técnicos
