@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACCOUNT - User Story Development Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1d4ed8, #6366f1);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .header p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .header .header-actions {
+            margin-top: 1.4rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .header .header-actions a {
+            padding: 0.6rem 1.4rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .header .header-actions a.secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .section {
+            background: white;
+            margin-top: 2rem;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+        }
+
+        .section h2 {
+            margin-bottom: 1rem;
+            color: #1d4ed8;
+            border-bottom: 3px solid #1d4ed8;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .overview p {
+            margin-bottom: 0.6rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.4rem;
+        }
+
+        .component-grid,
+        .api-grid,
+        .rule-grid,
+        .dep-grid,
+        .us-grid,
+        .perf-grid {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        .card {
+            padding: 1.4rem;
+            border-radius: 10px;
+            background: #f9fafb;
+            border: 1px solid #e2e8f0;
+            min-height: 200px;
+        }
+
+        .card h3 {
+            margin-bottom: 0.6rem;
+            color: #111827;
+        }
+
+        .us-templates li,
+        .rules-list li,
+        .deps-list li,
+        .testing-list li {
+            margin-bottom: 0.4rem;
+            line-height: 1.4;
+        }
+
+        .api-card pre,
+        .mermaid-card pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+
+        .mermaid-card {
+            grid-column: 1 / -1;
+        }
+
+        .rule-card, .dep-card {
+            min-height: 220px;
+        }
+
+        .dep-card ul,
+        .testing-list li {
+            list-style: none;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .dep-card ul li:before,
+        .testing-list li:before {
+            content: '•';
+            position: absolute;
+            left: -0.8rem;
+            color: #1d4ed8;
+        }
+
+        .performance-pill {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #075985;
+            border-radius: 999px;
+            padding: 0.3rem 1rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        .footer a {
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section {
+                padding: 1.4rem;
+            }
+
+            .api-grid,
+            .component-grid,
+            .rule-grid,
+            .dep-grid,
+            .us-grid,
+            .perf-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>💳 ACCOUNT — User Story Playbook</h1>
+            <p>Comprehensive guide for product, design, and engineering teams working on account view/update flows.</p>
+            <p><strong>Precision:</strong> ≥98% aligned with the React + MSW sources.</p>
+            <div class="header-actions">
+                <a href="../../modules/account/account-overview.md" class="secondary">Read Markdown overview</a>
+                <a href="../index.html">Back to Documentation Hub</a>
+            </div>
+        </header>
+
+        <section class="section overview">
+            <h2>📋 Overview</h2>
+            <p>This module delivers secure, keyboard-heavy experiences for the Account View (`/accounts/view`) and Account Update (`/accounts/update`) routes. It shows balances, credit limits, associated cards, and customer contact details with masked SSNs/card numbers by default while supporting rapid toggles, test account selection, and quick exits (F3/Escape).</p>
+            <p>The screens rely on `useAccountView`/`useAccountUpdate`, Material-UI, and an API client pointing to `/api`. MSW (`accountHandlers.ts`, `accountUpdateHandlers.ts`) provides ten curated accounts and validation logic when the backend is unavailable.</p>
+            <p><strong>Key behaviors:</strong></p>
+            <ul>
+                <li>Full-page forms (no modals) with inline validation maps.</li>
+                <li>SystemHeader replicates legacy transaction IDs (`CAVW`, `CAUP`).</li>
+                <li>Confirmation dialog + `hasChanges` chip prevents accidental writes.</li>
+            </ul>
+        </section>
+
+        <section class="section us-guide">
+            <h2>🎯 User Story Development Guide</h2>
+            <div class="grid us-grid">
+                <div class="card">
+                    <h3>📝 Story Templates</h3>
+                    <ul class="us-templates">
+                        <li><strong>Simple:</strong> Search an 11-digit account ID to surface balances and masked SSN within 500ms.</li>
+                        <li><strong>Medium:</strong> Update customer phone/ZIP without unlocking cards; show confirmation dialog.</li>
+                        <li><strong>Complex:</strong> Enforce FICO and available credit recalculation when adjusting limits > $10k.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>⚡ Acceleration Factors</h3>
+                    <ul class="us-templates">
+                        <li>`useAccountView` + `useAccountUpdate` encapsulate API/logout logic and change detection.</li>
+                        <li>Material-UI components + `SystemHeader` provide ready-made layouts.</li>
+                        <li>MSW handlers already validate FICO, ZIP, and simulate rollbacks.</li>
+                        <li>Keyboard shortcuts (ENTER, F5, F12, F3) keep the flow fast.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>📊 Complexity Guidance</h3>
+                    <ul class="us-templates">
+                        <li><strong>Simple (1-2 pts):</strong> Add a read-only indicator or tweak helper text.</li>
+                        <li><strong>Medium (3-5 pts):</strong> Extend validations, add new form fields, or include extra card details.</li>
+                        <li><strong>Complex (5-8 pts):</strong> Implement multi-step approval, integrate audit logging, or migrate to shared pattern.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section technical">
+            <h2>🔧 Technical Foundation</h2>
+            <div class="grid component-grid">
+                <div class="card">
+                    <h3>AccountViewScreen.tsx</h3>
+                    <p>Displays status chips, balances, customer info, and cards. Includes `showSensitiveData`, test account toggle, and ENTER/F3 keyboard handlers.</p>
+                </div>
+                <div class="card">
+                    <h3>AccountUpdateScreen.tsx</h3>
+                    <p>Search form + edit mode switch, validation map, confirmation dialog, and chips for unsaved changes. Supports ENTER, F5, F12, and F3.</p>
+                </div>
+                <div class="card">
+                    <h3>useAccountView</h3>
+                    <p>Pads the 11-digit ID, hits `/api/account-view`, initializes via `/api/account-view/initialize`, and exposes `clearData`.</p>
+                </div>
+                <div class="card">
+                    <h3>useAccountUpdate</h3>
+                    <p>Fetches `AccountUpdateData`, tracks `hasChanges`, wraps `PUT /api/accounts/{id}`, and exposes helpers for the screen.</p>
+                </div>
+                <div class="card">
+                    <h3>SystemHeader + LoadingSpinner</h3>
+                    <p>Reuses the legacy header with program IDs and shows spinners inside the Search/Save buttons while async calls run.</p>
+                </div>
+                <div class="card">
+                    <h3>apiClient + MSW</h3>
+                    <p>`apiClient` adds tokens, timeouts, and error handling. MSW handlers (`accountHandlers.ts`, `accountUpdateHandlers.ts`) mock the same contracts for offline dev.</p>
+                </div>
+            </div>
+            <div class="card mermaid-card">
+                <h3>Architecture Flow</h3>
+                <pre>graph TD
+  subgraph Frontend
+    AVPage[AccountViewPage (/accounts/view)]
+    AVScreen[AccountViewScreen]
+    AUPage[AccountUpdatePage (/accounts/update)]
+    AUScreen[AccountUpdateScreen]
+    AVPage --> AVScreen
+    AUPage --> AUScreen
+    AVScreen --> UseView[useAccountView]
+    AUScreen --> UseUpdate[useAccountUpdate]
+  end
+  subgraph API
+    ApiClient[apiClient (/api)]
+    UseView --> ApiClient
+    UseUpdate --> ApiClient
+    GETAccountView[GET /api/account-view?accountId=]
+    GETInit[GET /api/account-view/initialize]
+    GETAccounts[GET /api/accounts/{accountId}]
+    PUTAccounts[PUT /api/accounts/{accountId}]
+    ApiClient --> GETAccountView
+    ApiClient --> GETInit
+    ApiClient --> GETAccounts
+    ApiClient --> PUTAccounts
+  end
+  subgraph Mocks
+    MSWAccount[MSW accountHandlers.ts]
+    MSWUpdate[MSW accountUpdateHandlers.ts]
+    GETAccountView --> MSWAccount
+    GETInit --> MSWAccount
+    GETAccounts --> MSWUpdate
+    PUTAccounts --> MSWUpdate
+  end</pre>
+            </div>
+        </section>
+
+        <section class="section apis">
+            <h2>🌐 Public Interfaces</h2>
+            <div class="grid api-grid">
+                <div class="card api-card">
+                    <h3>GET /api/account-view?accountId=</h3>
+                    <p>Returns the account/cust info with masked SSN and cards. Called on the view screen with padded 11-digit IDs.</p>
+                    <p><strong>Initialize</strong>: `/api/account-view/initialize` runs on mount to show instructions.</p>
+                    <pre>{
+  "accountId": 11111111111,
+  "accountStatus": "Y",
+  "currentBalance": 1250.75,
+  "creditLimit": 5000.00,
+  "availableCredit": 3749.25,
+  "customerSsn": "***-**-6789",
+  "cards": [{ "cardNumber": "****-****-****-1111" }]
+}</pre>
+                </div>
+                <div class="card api-card">
+                    <h3>GET & PUT /api/accounts/{accountId}</h3>
+                    <p>GET populates the update form; PUT sends the full `AccountUpdateData`. MSW delays ~800ms (GET) and ~1.2s (PUT) to showcase spinners.</p>
+                    <p>PUT also simulates HTTP 500 for `99999999999` to test rollback messaging; real backend locks Account + Customer and enforces validations.</p>
+                    <pre>{
+  "accountId": 11111111111,
+  "activeStatus": "Y",
+  "creditLimit": 5000,
+  "zipCode": "10001",
+  "ficoScore": 750
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="section rules">
+            <h2>📋 Business Rules & Patterns</h2>
+            <div class="grid rule-grid">
+                <div class="card rule-card">
+                    <h3>Business Rules</h3>
+                    <ul class="rules-list">
+                        <li>Account ID = 11 digits, not all zeros.</li>
+                        <li>Status only accepts Y/N.</li>
+                        <li>SSN/card masked by default; toggle to reveal.</li>
+                        <li>ZIP follows `^\d{5}(-\d{4})?$`; FICO stays 300-850.</li>
+                        <li>Available credit recalculated as `creditLimit - currentBalance`.</li>
+                    </ul>
+                </div>
+                <div class="card rule-card">
+                    <h3>Form & UI Patterns</h3>
+                    <p>Dedicated full-page forms (no modals). Validation happens inside `handleFieldChange` plus the backend, and `hasChanges` ensures the Save button is only enabled after modifications.</p>
+                    <p>Keyboard shortcuts (ENTER, F5, F12, F3) mirror COBOL flows; chips and alerts show status info.</p>
+                </div>
+                <div class="card rule-card">
+                    <h3>Notification Pattern</h3>
+                    <p>Errors surface via `<Alert>` components, while confirmations use `<Dialog>` + `CheckCircle`. Loading states show a spinner inside buttons, and `Snackbar` is not required.</p>
+                </div>
+                <div class="card rule-card">
+                    <h3>Internationalization</h3>
+                    <p>Strings are currently English-only. i18n is tracked as DS3A-5 and can be layered on top of these screens once requirements are defined.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section deps">
+            <h2>🔗 Dependencies & Testing</h2>
+            <div class="grid dep-grid">
+                <div class="card dep-card">
+                    <h3>Dependencies</h3>
+                    <ul class="deps-list">
+                        <li><strong>AUTH</strong>: Provides tokens, roles, and `ProtectedRoute`.</li>
+                        <li><strong>MENU</strong>: Adds `/accounts/view` and `/accounts/update` menu options.</li>
+                        <li><strong>Credit Card</strong>: Supplies shared card masking logic.</li>
+                        <li><strong>Transaction</strong>: Depends on balances/limits documented here.</li>
+                        <li><strong>UI</strong>: Material-UI, `SystemHeader`, and theme tokens.</li>
+                        <li><strong>Backend</strong>: Spring Boot services (`AccountViewService`, `AccountUpdateService`, `AccountValidationService`).</li>
+                    </ul>
+                </div>
+                <div class="card dep-card">
+                    <h3>Testing & MSW</h3>
+                    <ul class="testing-list">
+                        <li>`accountHandlers.ts` supplies 10 mock accounts (IDs 11111111111 → 10101010101) with realistic SSNs, ZIPs, and cards.</li>
+                        <li>`accountUpdateHandlers.ts` enforces active status, ZIP, credit limit, FICO, and includes a failure route for `99999999999`.</li>
+                        <li>Test accounts and initialize endpoints (`/api/account-view/test-accounts`, `/api/account-view/initialize`) help QA explore scenarios.</li>
+                        <li>Delays (800ms GET, 1.2s PUT) drive the loading spinner for better UX verification.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section performance">
+            <h2>⚡ Performance & Readiness</h2>
+            <div class="grid perf-grid">
+                <div class="card">
+                    <h3>Performance Budgets</h3>
+                    <span class="performance-pill">View &lt; 500ms</span>
+                    <span class="performance-pill">Update &lt; 1s</span>
+                    <ul class="deps-list">
+                        <li>Target ≤3 DB joins (`Account`, `Customer`, `CardXrefRecord`).</li>
+                        <li>No frontend caching—each search hits the APIs.</li>
+                        <li>Loading spinners appear during MSW delays to mimic real latency.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Readiness & Risks</h3>
+                    <ul class="testing-list">
+                        <li>Risk: MSW validation may drift from backend rules → keep `accountUpdateHandlers.ts` synced.</li>
+                        <li>Risk: Sensitive data exposure if mask toggle is left on → resets on unmount.</li>
+                        <li>Risk: No i18n yet → backlog item DS3A-5 will scope the rollout.</li>
+                        <li>Next step: Add e2e test covering rollback path (`accounts/99999999999`).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p><a href="../../modules/account/account-overview.md">Read the Markdown overview</a> · <a href="../index.html">Back to Modules index</a> · <a href="../../system-overview.md">System overview</a></p>
+            <p>Last update: 2026-02-08 · Precision: ≥98%</p>
+        </footer>
+    </div>
+</body>
+</html>

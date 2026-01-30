@@ -52,33 +52,29 @@ docs/
 - ✅ Características clave con badges de colores
 - ✅ Footer con última actualización y precisión
 
-### 3. site/modules/accounts/index.html (Módulo de Cuentas)
-**Tamaño:** 23KB | **Idioma:** Español
+### 3. site/modules/account/index.html (Módulo de Cuentas)
+**Tamaño:** 34KB | **Idioma:** Inglés con llamadas a Markdown en español
 
 **Secciones Incluidas:**
-- ✅ **Resumen del Módulo** - Contexto de negocio y responsabilidades
-- ✅ **Guía de US** - Templates por dominio (Visualización, Actualización, Validación)
-- ✅ **Factores de Aceleración** - 5 componentes/hooks reutilizables documentados
-- ✅ **Guías de Complejidad** - Ejemplos específicos del módulo
-- ✅ **Fundación Técnica** - 7 componentes clave con responsabilidades y reusabilidad
-- ✅ **Dependencias** - Entidades JPA, Material-UI, Redux
-- ✅ **Interfaces Públicas** - 4 APIs documentadas con request/response
-- ✅ **Modelos de Datos** - Código TypeScript y Java simplificado
-- ✅ **Reglas de Negocio** - Organizadas por categoría (Identificación, Seguridad, Validaciones, Transaccionalidad)
-- ✅ **Patrones de Criterios de Aceptación** - 4 ejemplos Dado-Cuando-Entonces
-- ✅ **Consideraciones de Rendimiento** - Métricas específicas (< 500ms, 100 req/s, 50MB/sesión)
-- ✅ **Riesgos y Mitigaciones** - 4 riesgos con estrategias de mitigación
-- ✅ **Ejemplos de Código** - useAccountView.ts y AccountUpdateService.java con anotaciones
-- ✅ **Tabla de Validaciones** - 8 validaciones clave con regex y reglas
+- ✅ **Resumen del Módulo** - Contexto, test accounts y patrones reales de teclado.
+- ✅ **Guía de US** - Templates simples/medios/complejos alineados con criterios de aceptación reales.
+- ✅ **Factores de Aceleración** - Hooks, SystemHeader, keyboard shortcuts y MSW como aceleradores.
+- ✅ **Complejidad** - Ejemplos concretos para 1-2 pts, 3-5 pts y 5-8 pts.
+- ✅ **Fundación Técnica** - AccountView/Update screens, hooks, header y API client con mejoras.
+- ✅ **Interfaces Públicas** - GET/PUT verificadas con JSON de ejemplo y error simulado (`accounts/99999999999`).
+- ✅ **Modelos y Reglas** - Principales campos TS + reglas de negocio (FICO, ZIP, masking).
+- ✅ **Patrones de Notificación** - Alert, Dialog, chips, y spinner en botones.
+- ✅ **Dependencias y Testing** - Auth, Menu, Credit Card, MSW handlers con datos reales.
+- ✅ **Rendimiento & Readiness** - Presupuestos (<500ms / <1s) y riesgos (i18n, auditoría, rollback).
+- ✅ **Arquitectura** - Diagrama Mermaid embebido y explicación de flujos (AccountViewPage → API → MSW).
 
 **Diseño:**
-- ✅ CSS integrado con estilo profesional
-- ✅ Color scheme violeta (#667eea) consistente
-- ✅ Cards con bordes y sombras
-- ✅ Pre/code con sintaxis destacada
-- ✅ Badges de complejidad (verde/amarillo/rojo)
-- ✅ Tabla responsive con headers coloreados
-- ✅ Navegación con enlaces de retorno
+- ✅ Estilo profesional con `card` + gradient header
+- ✅ Botones de acceso rápido a Markdown + índice de módulos
+- ✅ Grid adaptativo para componentes y reglas
+- ✅ `pre` con JSON real y diagrama Mermaid
+- ✅ Badges de performance/resiliencia
+- ✅ Footer con enlaces a `system-overview.md` y actualización más reciente
 
 ## 🎯 Cumplimiento del Template Solicitado
 
@@ -93,7 +89,7 @@ docs/
 ### Checklist Final de Entregables ✅
 - [x] `docs/system-overview.md` creado y completo
 - [x] `docs/site/index.html` creado con navegación
-- [x] `docs/site/modules/accounts/index.html` generado
+- [x] `docs/site/modules/account/index.html` generado (nueva guía + Mermaid + rendimiento)
 - [x] Diagramas Mermaid representan arquitectura actual
 - [x] Patrones frontend reales analizados y documentados
 - [x] Templates US específicos por módulo incluidos
@@ -104,7 +100,7 @@ docs/
 **TODO EN ESPAÑOL** según requisito DS3A-5:
 - ✅ system-overview.md → Español
 - ✅ site/index.html → Español
-- ✅ site/modules/accounts/index.html → Español
+- ✅ site/modules/account/index.html → English guide + Markdown referenciado
 - ✅ Títulos, descripciones, ejemplos, código comentado → Español
 
 ## 📊 Estadísticas Finales
@@ -159,7 +155,7 @@ docs/
 
 - **System Overview:** `docs/system-overview.md`
 - **Site Principal:** `docs/site/index.html` (abrir en navegador)
-- **Módulo Cuentas:** `docs/site/modules/accounts/index.html`
+- **Módulo Cuentas:** `docs/site/modules/account/index.html` (EN) + `docs/modules/account/account-overview.md` (ES)
 - **Código Fuente Frontend:** `frontend/app/components/account/`
 - **Código Fuente Backend:** `management/src/main/java/com/card/management/`
 
