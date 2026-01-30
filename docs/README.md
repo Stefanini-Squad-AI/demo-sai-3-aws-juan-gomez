@@ -8,7 +8,7 @@ docs/
 └── site/
     ├── index.html                  # 🏠 Main navigable page
     └── modules/
-        └── accounts/
+        └── account/
             └── index.html          # 📦 Accounts module detailed guide
 ```
 
@@ -20,7 +20,7 @@ docs/
 open docs/site/index.html
 
 # Or navigate directly to accounts module
-open docs/site/modules/accounts/index.html
+open docs/site/modules/account/index.html
 ```
 
 ### Option 2: Read Markdown
@@ -53,7 +53,7 @@ Interactive HTML landing page with:
 - Navigation to detailed guides
 - Links to API documentation (Swagger)
 
-### 3. Accounts Module Guide (site/modules/accounts/index.html)
+### 3. Accounts Module Guide (site/modules/account/index.html)
 Comprehensive development guide with:
 - User story templates specific to accounts
 - Code examples (real patterns from codebase)
@@ -139,7 +139,7 @@ PUT  /api/accounts/{accountId}             - Update account & customer
 ## 📈 Next Steps
 
 1. **For Product Owners:** Use system-overview.md to create backlog items
-2. **For Developers:** Reference site/modules/accounts/index.html for implementation patterns
+2. **For Developers:** Reference site/modules/account/index.html for implementation patterns
 3. **For QA:** Use acceptance criteria patterns for test case creation
 4. **For Architects:** Review technical foundation and data models
 

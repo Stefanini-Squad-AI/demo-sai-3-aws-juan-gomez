@@ -9,7 +9,7 @@ docs/
  site/
     ├── index.html                  # 🏠 Página principal navegable (7KB)
     └── modules/
-        └── accounts/
+        └── account/
             └── index.html          # Página HTML del módulo (23KB)
 ```
 
@@ -52,7 +52,7 @@ docs/
 - ✅ Características clave con badges de colores
 - ✅ Footer con última actualización y precisión
 
-### 3. site/modules/accounts/index.html (Módulo de Cuentas)
+### 3. site/modules/account/index.html (Módulo de Cuentas)
 **Tamaño:** 23KB | **Idioma:** Español
 
 **Secciones Incluidas:**
@@ -93,7 +93,7 @@ docs/
 ### Checklist Final de Entregables ✅
 - [x] `docs/system-overview.md` creado y completo
 - [x] `docs/site/index.html` creado con navegación
-- [x] `docs/site/modules/accounts/index.html` generado
+- [x] `docs/site/modules/account/index.html` generado
 - [x] Diagramas Mermaid representan arquitectura actual
 - [x] Patrones frontend reales analizados y documentados
 - [x] Templates US específicos por módulo incluidos
@@ -104,7 +104,7 @@ docs/
 **TODO EN ESPAÑOL** según requisito DS3A-5:
 - ✅ system-overview.md → Español
 - ✅ site/index.html → Español
-- ✅ site/modules/accounts/index.html → Español
+- ✅ site/modules/account/index.html → Español
 - ✅ Títulos, descripciones, ejemplos, código comentado → Español
 
 ## 📊 Estadísticas Finales
@@ -159,7 +159,7 @@ docs/
 
 - **System Overview:** `docs/system-overview.md`
 - **Site Principal:** `docs/site/index.html` (abrir en navegador)
-- **Módulo Cuentas:** `docs/site/modules/accounts/index.html`
+- **Módulo Cuentas:** `docs/site/modules/account/index.html`
 - **Código Fuente Frontend:** `frontend/app/components/account/`
 - **Código Fuente Backend:** `management/src/main/java/com/card/management/`
 
