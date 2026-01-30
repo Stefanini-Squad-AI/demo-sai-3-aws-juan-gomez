@@ -8,7 +8,7 @@ docs/
 └── site/
     ├── index.html                  # 🏠 Main navigable page
     └── modules/
-        └── accounts/
+        └── account/
             └── index.html          # 📦 Accounts module detailed guide
 ```
 
@@ -19,8 +19,9 @@ docs/
 # Open the main documentation hub in your browser
 open docs/site/index.html
 
-# Or navigate directly to accounts module
-open docs/site/modules/accounts/index.html
+# Or navigate directly to the ACCOUNT module guide (HTML + Markdown)
+open docs/site/modules/account/index.html
+open docs/modules/account/account-overview.md
 ```
 
 ### Option 2: Read Markdown
@@ -53,14 +54,14 @@ Interactive HTML landing page with:
 - Navigation to detailed guides
 - Links to API documentation (Swagger)
 
-### 3. Accounts Module Guide (site/modules/accounts/index.html)
+### 3. Accounts Module Guide (site/modules/account/index.html + docs/modules/account/account-overview.md)
 Comprehensive development guide with:
-- User story templates specific to accounts
-- Code examples (real patterns from codebase)
-- Business rules and acceptance criteria
-- Technical foundation (components, services, entities)
-- Performance considerations
-- Risk mitigation strategies
+- User story templates specific to account view/update
+- Architecture diagram + hook/component breakdown
+- API contracts and sample payloads
+- Business rules, acceptance criteria, and complexity guidance
+- Dependencies (Auth, Menu, MSW) and testing recipes
+- Performance & readiness notes aligned with DS3AJG-1
 
 ## 🎯 Key Features
 
@@ -139,7 +140,7 @@ PUT  /api/accounts/{accountId}             - Update account & customer
 ## 📈 Next Steps
 
 1. **For Product Owners:** Use system-overview.md to create backlog items
-2. **For Developers:** Reference site/modules/accounts/index.html for implementation patterns
+2. **For Developers:** Reference site/modules/account/index.html for implementation patterns, story complexity guidance, and MSW-backed test flows
 3. **For QA:** Use acceptance criteria patterns for test case creation
 4. **For Architects:** Review technical foundation and data models
 

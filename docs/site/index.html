@@ -61,6 +61,47 @@
             margin-bottom: 1rem;
             font-size: 1.1rem;
         }
+
+        .module-highlight {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            color: #f9fafb;
+            padding: 1.8rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.4);
+            margin-bottom: 2rem;
+        }
+
+        .module-highlight h2 {
+            font-size: 1.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .module-highlight p {
+            margin-bottom: 1rem;
+            color: #d1d5db;
+        }
+
+        .highlight-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .highlight-actions a {
+            display: inline-block;
+            padding: 0.6rem 1.1rem;
+            border-radius: 999px;
+            background: #38bdf8;
+            color: #0f172a;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .highlight-actions a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(15, 23, 42, 0.3);
+        }
         
         .stats {
             display: grid;
@@ -289,6 +330,17 @@
             </p>
         </section>
 
+        <section class="module-highlight">
+            <h2>💡 ACCOUNT Module Documentation</h2>
+            <p>
+                The ACCOUNT module now has its own Markdown overview and enriched HTML companion aligned with the TEMPLATE_DOC framework. Use them to understand the component architecture, APIs, data rules, and US patterns before starting work.
+            </p>
+            <div class="highlight-actions">
+                <a href="modules/account/index.html">See Details (HTML Module Guide) →</a>
+                <a href="../modules/account/account-overview.md">Read Overview (Markdown) →</a>
+            </div>
+        </section>
+
         <section class="stats">
             <div class="stat-card">
                 <div class="number">9</div>
@@ -348,7 +400,7 @@
                     <li>Gestión segura de sesión</li>
                     <li>Redirección automática</li>
                 </ul>
-                <a href="modules/auth/index.html" class="link">Ver Detalles →</a>
+                <a href="modules/auth/index.html" class="link">See Details →</a>
             </div>
 
             <div class="module-card">
@@ -360,7 +412,7 @@
                     <li>Visualización de tarjetas asociadas</li>
                     <li>Cálculo de crédito disponible</li>
                 </ul>
-                <a href="modules/accounts/index.html" class="link">Ver Detalles →</a>
+                <a href="modules/account/index.html" class="link">See Details →</a>
             </div>
 
             <div class="module-card">
@@ -372,7 +424,7 @@
                     <li>Actualización y bloqueo</li>
                     <li>Consulta de detalles</li>
                 </ul>
-                <a href="../system-overview.md#-credit-card---gestión-de-tarjetas-de-crédito" class="link">Ver Detalles →</a>
+                <a href="../system-overview.md#-credit-card---gestión-de-tarjetas-de-crédito" class="link">See Details →</a>
             </div>
 
             <div class="module-card">
@@ -384,7 +436,7 @@
                     <li>Generación de reportes</li>
                     <li>Validación de límites</li>
                 </ul>
-                <a href="../system-overview.md#-transaction---gestión-de-transacciones" class="link">Ver Detalles →</a>
+                <a href="../system-overview.md#-transaction---gestión-de-transacciones" class="link">See Details →</a>
             </div>
 
             <div class="module-card">
@@ -396,7 +448,7 @@
                     <li>Actualización de roles</li>
                     <li>Baja de usuarios</li>
                 </ul>
-                <a href="../system-overview.md#-user---gestión-de-usuarios-del-sistema" class="link">Ver Detalles →</a>
+                <a href="../system-overview.md#-user---gestión-de-usuarios-del-sistema" class="link">See Details →</a>
             </div>
 
             <div class="module-card">
@@ -408,7 +460,7 @@
                     <li>Menús dinámicos por rol</li>
                     <li>Navegación intuitiva</li>
                 </ul>
-                <a href="../system-overview.md#-menu---sistema-de-menús" class="link">Ver Detalles →</a>
+                <a href="../system-overview.md#-menu---sistema-de-menús" class="link">See Details →</a>
             </div>
 
             <div class="module-card">
@@ -420,7 +472,7 @@
                     <li>Confirmación de pago</li>
                     <li>Historial de pagos</li>
                 </ul>
-                <a href="../system-overview.md#-bill-payment---pago-de-servicios" class="link">Ver Detalles →</a>
+                <a href="../system-overview.md#-bill-payment---pago-de-servicios" class="link">See Details →</a>
             </div>
 
             <div class="module-card">
@@ -432,7 +484,7 @@
                     <li>Loading spinners</li>
                     <li>Diálogos de confirmación</li>
                 </ul>
-                <a href="../system-overview.md#-ui---componentes-de-interfaz" class="link">Ver Detalles →</a>
+                <a href="../system-overview.md#-ui---componentes-de-interfaz" class="link">See Details →</a>
             </div>
 
             <div class="module-card">
@@ -444,7 +496,7 @@
                     <li>Barra de navegación</li>
                     <li>Diseño responsive</li>
                 </ul>
-                <a href="../system-overview.md#-layout---estructura-de-páginas" class="link">Ver Detalles →</a>
+                <a href="../system-overview.md#-layout---estructura-de-páginas" class="link">See Details →</a>
             </div>
         </section>
 
